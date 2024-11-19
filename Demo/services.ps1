@@ -11,3 +11,15 @@ ForEach ($computer in $computers){
 
 }
 
+#Create a new AD user, prompting the script runner for the minimum input needed to create the user
+
+$first = Read-Host "Provide a first name"
+$last = Read-Host "Provide a last name"
+$name = $first+" "+$last
+$password = Read-Host -AsSecureString "Set a password"
+$department = Read-Host "Provide a department"
+New-ADUser -givenname $first -surname $last -Name $name -AccountPassword $password -samaccountname "$first.$last" -Department $department -Path "OU=$department,DC=Adatum,DC=com" -Enabled $true
+
+Get-ADUser -filter "name -like 'apple*'" -property * 
+Remove-ADUser -identity "Apple.Orange"
+
