@@ -23,3 +23,18 @@ New-ADUser -givenname $first -surname $last -Name $name -AccountPassword $passwo
 Get-ADUser -filter "name -like 'apple*'" -property * 
 Remove-ADUser -identity "Apple.Orange"
 
+#backup an important folder and check the time difference between now and the last modified time
+
+$important= "C:\Users\Administrator.ADATUM\Desktop\IMPORTANT"
+$backupFolder= "E:\backup"
+
+$checkTime=(gci $important).LastWriteTime
+
+ForEach($i in $checkTime){
+   $now = Get-Date
+   $compareTime = New-TimeSpan -Start $i -End $now
+   if ($compareTime.TotalMinutes -gt 1){
+        copy-item -path $important -destination $backupFolder -force -recurse
+        }
+ 
+}
