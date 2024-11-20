@@ -31,8 +31,8 @@ $backupFolder= "E:\backup"
 $checkTime=(gci $important).LastWriteTime
 
 ForEach($i in $checkTime){
-   $now = Get-Date
-   $compareTime = New-TimeSpan -Start $i -End $now
+   $backupTime = (gci $backupFolder).LastWriteTime
+   $compareTime = New-TimeSpan -Start $i -End $backuptime
    if ($compareTime.TotalMinutes -gt 1){
         copy-item -path $important -destination $backupFolder -force -recurse
         }
