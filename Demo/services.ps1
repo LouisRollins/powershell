@@ -1,4 +1,5 @@
-# Test Sync
+#Get computers running a specific OS, then show me what OS they are running, their IPv4 address, and their last logon time.
+
 $computers = Get-ADComputer -Filter "OperatingSystem -eq 'Windows Server 2019 Datacenter Evaluation'" -Properties OperatingSystem,IPv4Address,lastLogonDate 
 
 ForEach ($computer in $computers){
@@ -11,7 +12,7 @@ ForEach ($computer in $computers){
 
 }
 
-#Create a new AD user, prompting the script runner for the minimum input needed to create the user
+#Create a new AD user, prompting the script runner for the minimum input needed to create the user.
 
 $first = Read-Host "Provide a first name"
 $last = Read-Host "Provide a last name"
@@ -23,8 +24,7 @@ New-ADUser -givenname $first -surname $last -Name $name -AccountPassword $passwo
 Get-ADUser -filter "name -like 'apple*'" -property * 
 Remove-ADUser -identity "Apple.Orange"
 
-#backup an important folder and check the time difference between now and the last modified time
-
+#Backup an important folder if there is a difference of one minute or greater between the LastWriteTime of the source file and the backup file.
 $important= "C:\Users\Administrator.ADATUM\Desktop\IMPORTANT"
 $backupFolder= "E:\backup"
 
