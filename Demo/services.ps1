@@ -51,3 +51,13 @@ $url = "https://swudb.com/deck/view/yfLSWFLbnuYVP?handler=JSONFile"
 $response = Invoke-WebRequest $url
 $data = $response.Content
 $data | clip
+
+#Grabbing a random leader from the leader dropdown on the search page....
+$url= "https://swudb.com/decks/search"
+$response = Invoke-WebRequest $url
+$dropdown = $response.ParsedHtml.getElementById("SearchLeaderID").GetElementsByTagName("option") | select-object
+$modifiedDropdown = $dropdown[1..($dropdown.Length-1)]
+$randomSelection = Get-Random -InputObject $modifiedDropdown
+Write-Output $randomSelection.text
+$search = $response.ParsedHtml.getElementsByTagName("input") | Where-Object {$_.defaultValue -eq 'Search'}
+$search.click()
