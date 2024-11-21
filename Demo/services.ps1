@@ -38,3 +38,16 @@ ForEach($i in $checkTime){
         }
  
 }
+
+
+#Scrape a website for a specific list
+$url = "https://swudb.com/deck/view/yfLSWFLbnuYVP?handler=TextFile"
+$response = Invoke-WebRequest $url
+$data = $response.Content
+write-output $data
+
+#Scrape a website for a specific list and capture it as JSON, then copy the output to clipboard
+$url = "https://swudb.com/deck/view/yfLSWFLbnuYVP?handler=JSONFile"
+$response = Invoke-WebRequest $url
+$data = $response.Content
+$data | clip
